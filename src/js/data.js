@@ -170,7 +170,7 @@ function head(title, lead) {
 // ---------- S1 ปก ----------
 DATA.slides.push({
   theme: 'overview', kicker: 'สื่อการเรียนรู้ · สุขศึกษา', ovTitle: 'ปก',
-  speakers: [sp('กนต์ธร', 'พิธีกรเปิด')],
+  speakers: [sp('ภัฏ', 'กล่าวเปิด · ผู้จัดทำสื่อ')],
   html: `<div class="cover">
     <div class="eyebrow reveal">${DATA.meta.subject} · ${DATA.meta.level}</div>
     <h1 class="reveal d1 scale">${DATA.meta.title}</h1>

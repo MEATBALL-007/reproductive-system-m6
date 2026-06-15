@@ -95,57 +95,58 @@
     });
   };
 
-  // ───────────────────────── ชาย: ภายใน ──────────────────────────────────
+  // ───────────────────────── ชาย: ภายใน (มุมมองด้านข้าง sagittal) ──────────
   window.WIDGETS['diagram-male-internal'] = function (host) {
     makeDiagram(host, {
-      viewBox: '0 0 760 620',
-      aria: 'อวัยวะสืบพันธุ์ชายภายใน (แผนผังด้านหน้า)',
-      caption: 'มุมมองด้านหน้า · เส้นจาง = แนวลำตัว/ต้นขา · เส้นประเขียว = เส้นทางอสุจิ (มีอวัยวะคู่ละ 2 ข้าง)',
+      viewBox: '0 0 760 580',
+      aria: 'อวัยวะสืบพันธุ์ชายภายใน (มุมมองด้านข้าง)',
+      caption: 'มุมมองด้านข้าง (sagittal) · เส้นจาง = แนวลำตัว · เส้นประ = ท่อปัสสาวะ/เส้นทางอสุจิ',
       art: `
-        <!-- โครงร่างลำตัว + ขา 2 ข้าง (จาง) -->
-        <path d="M248 24 L512 24 L524 300 L470 332 L290 332 L236 300 Z"
-              fill="rgba(255,255,255,.03)" stroke="var(--stroke)" stroke-width="1.5"/>
-        <path d="M248 320 Q224 470 250 606 L338 606 Q352 470 366 372 L394 372 Q408 470 422 606 L510 606 Q536 470 512 320 Z"
-              fill="rgba(255,255,255,.025)" stroke="var(--stroke)" stroke-width="1.5"/>
-        <text x="380" y="50" text-anchor="middle" font-size="12.5" fill="var(--ink-dim)">ช่องเชิงกราน (มุมมองด้านหน้า)</text>
-        <text x="300" y="560" text-anchor="middle" font-size="11" fill="var(--ink-dim)">ขา</text>
-        <text x="460" y="560" text-anchor="middle" font-size="11" fill="var(--ink-dim)">ขา</text>
+        <!-- โครงร่างลำตัวด้านข้าง (จาง): สะโพก/ก้นด้านซ้าย · องคชาตยื่นขวา-ล่าง -->
+        <path d="M150 26 L452 26 C452 120 450 150 452 168 C500 178 560 210 575 250
+                 C600 300 632 360 612 372 C588 386 560 360 540 346 C516 360 470 300 452 270
+                 C436 300 360 312 300 318 C250 322 235 360 235 400 L235 560 L96 560
+                 C62 360 60 250 84 180 C100 120 110 60 150 26 Z"
+              fill="rgba(255,196,168,.07)" stroke="var(--stroke)" stroke-width="1.5"/>
+        <text x="180" y="60" font-size="12" fill="var(--ink-dim)">ลำตัว (ด้านข้าง)</text>
+        <!-- ทวารหนัก (บริบท จาง) -->
+        <path d="M205 150 L205 330" stroke="var(--stroke-strong)" stroke-width="16" fill="none" stroke-linecap="round" opacity=".35"/>
+        <text x="170" y="250" font-size="10.5" fill="var(--ink-dim)" text-anchor="end">ทวารหนัก</text>
         <!-- กระเพาะปัสสาวะ (บริบท จาง) -->
-        <ellipse cx="380" cy="168" rx="82" ry="60" fill="rgba(255,255,255,.04)" stroke="var(--stroke-strong)" stroke-width="1.5"/>
-        <text x="380" y="120" text-anchor="middle" font-size="11" fill="var(--ink-dim)">กระเพาะปัสสาวะ</text>
-        <!-- เส้นทางอสุจิ 2 ข้าง (จาง) -->
-        <path d="M318 506 Q300 380 352 312 L380 300 L380 470" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="5 7" opacity=".4"/>
-        <path d="M442 506 Q460 380 408 312 L380 300" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-dasharray="5 7" opacity=".4"/>
-        <!-- ถุงน้ำเลี้ยงอสุจิ 2 ข้าง -->
-        <ellipse class="organ-soft" cx="318" cy="236" rx="28" ry="20" transform="rotate(-22 318 236)"/>
-        <ellipse class="organ-soft" cx="442" cy="236" rx="28" ry="20" transform="rotate(22 442 236)"/>
-        <!-- ต่อมลูกหมาก (donut รอบท่อปัสสาวะ) -->
-        <ellipse class="organ-fill" cx="380" cy="286" rx="46" ry="38"/>
-        <circle cx="380" cy="286" r="11" fill="var(--bg-1)" stroke="var(--accent-2)" stroke-width="2"/>
-        <!-- ต่อมคาวเปอร์ 2 ข้าง -->
-        <circle class="organ-soft" cx="350" cy="334" r="12"/>
-        <circle class="organ-soft" cx="410" cy="334" r="12"/>
-        <!-- ท่อนำอสุจิ 2 ข้าง -->
-        <path class="organ-line" d="M322 488 Q300 380 350 312" stroke-width="4.5"/>
-        <path class="organ-line" d="M438 488 Q460 380 410 312" stroke-width="4.5"/>
-        <!-- ท่อปัสสาวะ + องคชาต (ลงล่าง ระหว่างขา) -->
-        <rect class="organ-soft" x="358" y="328" width="44" height="160" rx="22"/>
-        <line x1="380" y1="348" x2="380" y2="478" stroke="var(--accent-2)" stroke-width="2" stroke-dasharray="3 5" opacity=".6"/>
-        <ellipse class="organ-fill" cx="380" cy="506" rx="30" ry="26"/>
-        <!-- อัณฑะ + ท่อพักอสุจิ 2 ข้าง -->
-        <ellipse class="organ-fill" cx="316" cy="508" rx="44" ry="40"/>
-        <path class="organ-line" d="M348 482 Q372 508 346 534" stroke-width="5"/>
-        <ellipse class="organ-fill" cx="444" cy="508" rx="44" ry="40"/>
-        <path class="organ-line" d="M412 482 Q388 508 414 534" stroke-width="5"/>
+        <ellipse cx="345" cy="180" rx="72" ry="56" fill="rgba(185,140,255,.10)" stroke="var(--stroke-strong)" stroke-width="1.5"/>
+        <text x="345" y="135" text-anchor="middle" font-size="11" fill="var(--ink-dim)">กระเพาะปัสสาวะ</text>
+        <!-- หัวหน่าว (บริบท) -->
+        <ellipse cx="420" cy="270" rx="16" ry="22" fill="rgba(255,255,255,.06)" stroke="var(--stroke)"/>
+        <!-- ถุงน้ำเลี้ยงอสุจิ (หลังกระเพาะปัสสาวะ) -->
+        <path class="organ-soft" d="M250 232 q22 -22 44 -6 q14 14 0 30 q-10 14 -26 8 q-22 -8 -18 -32 Z"/>
+        <!-- ท่อนำอสุจิ: จากอัณฑะวนขึ้นหลังกระเพาะปัสสาวะ -->
+        <path class="organ-line" d="M520 408 C470 350 440 312 408 296 C360 272 300 270 282 252" stroke-width="4.5"/>
+        <!-- ต่อมลูกหมาก (ล้อมท่อปัสสาวะ ใต้กระเพาะปัสสาวะ) -->
+        <ellipse class="organ-fill" cx="372" cy="288" rx="40" ry="34"/>
+        <circle cx="372" cy="288" r="10" fill="var(--bg-1)" stroke="var(--accent-2)" stroke-width="2"/>
+        <!-- ต่อมคาวเปอร์ (ใต้ต่อมลูกหมาก ใกล้โคนองคชาต) -->
+        <circle class="organ-soft" cx="404" cy="330" r="13"/>
+        <!-- องคชาต (ยื่นไปขวา-ล่าง) -->
+        <path class="organ-soft" d="M404 296 L660 392 Q692 402 690 424 Q686 448 658 440 L410 352 Z"/>
+        <ellipse class="organ-fill" cx="676" cy="424" rx="26" ry="24"/>
+        <!-- ท่อปัสสาวะ (เส้นประ ผ่านต่อมลูกหมาก → องคชาต → ปลาย) -->
+        <path d="M345 232 C360 260 366 280 380 300 C420 330 540 372 666 418"
+              fill="none" stroke="var(--accent-2)" stroke-width="2.4" stroke-dasharray="4 6" opacity=".7"/>
+        <!-- ถุงอัณฑะ + อัณฑะ + ท่อพักอสุจิ (ห้อยล่าง) -->
+        <path class="organ-soft" d="M470 372 C432 392 420 470 472 512 C520 548 580 540 606 498 C632 456 620 388 568 372 Z" opacity=".5"/>
+        <ellipse class="organ-fill" cx="528" cy="456" rx="48" ry="56"/>
+        <ellipse cx="540" cy="448" rx="20" ry="26" fill="rgba(255,255,255,.10)"/>
+        <!-- ท่อพักอสุจิ (epididymis) คลุมด้านหลัง-บนของอัณฑะ -->
+        <path class="organ-line" d="M486 412 C474 446 480 486 506 506" stroke-width="6"/>
       `,
       organs: [
-        { id: 'testis', x: 316, y: 508, lx: -16, name: 'อัณฑะ', en: 'testis', fn: 'สร้างอสุจิในหลอดสร้างอสุจิ และสร้างฮอร์โมนเทสโทสเตอโรน (มี 2 ข้าง)' },
-        { id: 'epididymis', x: 350, y: 534, name: 'ท่อพักอสุจิ', en: 'epididymis', fn: 'เก็บอสุจิและทำให้อสุจิเจริญเต็มที่จนเคลื่อนที่ (ว่ายน้ำ) ได้' },
-        { id: 'vas', x: 320, y: 408, lx: -28, name: 'ท่อนำอสุจิ', en: 'vas deferens', fn: 'ลำเลียงอสุจิจากท่อพักอสุจิขึ้นไปรวมกับของเหลวจากต่อมต่าง ๆ ก่อนเข้าสู่ท่อปัสสาวะ' },
-        { id: 'seminal', x: 318, y: 236, lx: -22, ly: -8, name: 'ถุงน้ำเลี้ยงอสุจิ', en: 'seminal vesicle', fn: 'สร้างของเหลวที่มีน้ำตาลฟรุกโตส เป็นแหล่งพลังงานให้อสุจิ' },
-        { id: 'prostate', x: 380, y: 286, name: 'ต่อมลูกหมาก', en: 'prostate gland', fn: 'สร้างของเหลวเป็นด่างอ่อนผสมในน้ำอสุจิ ช่วยลดความเป็นกรดเพื่อให้อสุจิอยู่รอด' },
-        { id: 'bulbo', x: 410, y: 334, name: 'ต่อมคาวเปอร์', en: 'bulbourethral gland', fn: 'หลั่งเมือกหล่อลื่นและช่วยทำความสะอาดท่อปัสสาวะก่อนการหลั่ง' },
-        { id: 'urethra', x: 380, y: 430, lx: 14, name: 'ท่อปัสสาวะ', en: 'urethra', fn: 'ทางผ่านร่วมของน้ำอสุจิและปัสสาวะออกสู่ภายนอกผ่านองคชาต' },
+        { id: 'testis', x: 528, y: 456, name: 'อัณฑะ', en: 'testis', fn: 'สร้างอสุจิในหลอดสร้างอสุจิ และสร้างฮอร์โมนเทสโทสเตอโรน' },
+        { id: 'epididymis', x: 488, y: 458, lx: -20, name: 'ท่อพักอสุจิ', en: 'epididymis', fn: 'อยู่ด้านหลัง-บนของอัณฑะ เก็บอสุจิและทำให้อสุจิเจริญเต็มที่จนเคลื่อนที่ (ว่ายน้ำ) ได้' },
+        { id: 'vas', x: 440, y: 318, name: 'ท่อนำอสุจิ', en: 'vas deferens', fn: 'ลำเลียงอสุจิจากท่อพักอสุจิวนขึ้นไปด้านหลังกระเพาะปัสสาวะ ก่อนเข้าสู่ท่อปัสสาวะ' },
+        { id: 'seminal', x: 272, y: 238, lx: -22, ly: -6, name: 'ถุงน้ำเลี้ยงอสุจิ', en: 'seminal vesicle', fn: 'อยู่หลังกระเพาะปัสสาวะ สร้างของเหลวที่มีน้ำตาลฟรุกโตส เป็นแหล่งพลังงานให้อสุจิ' },
+        { id: 'prostate', x: 372, y: 288, name: 'ต่อมลูกหมาก', en: 'prostate gland', fn: 'อยู่ใต้กระเพาะปัสสาวะ ล้อมรอบท่อปัสสาวะ สร้างของเหลวด่างอ่อนช่วยให้อสุจิอยู่รอด' },
+        { id: 'bulbo', x: 404, y: 330, name: 'ต่อมคาวเปอร์', en: 'bulbourethral gland', fn: 'อยู่ใต้ต่อมลูกหมากใกล้โคนองคชาต หลั่งเมือกหล่อลื่นและทำความสะอาดท่อปัสสาวะ' },
+        { id: 'urethra', x: 560, y: 392, ly: -10, name: 'ท่อปัสสาวะ', en: 'urethra', fn: 'ทางผ่านร่วมของน้ำอสุจิและปัสสาวะ วิ่งจากกระเพาะปัสสาวะผ่านต่อมลูกหมากไปตามองคชาตสู่ปลาย' },
       ],
     });
   };

@@ -119,14 +119,22 @@ const Engine = (function () {
     const fit = slide.querySelector('.fit');
     const inner = slide.querySelector('.slide__inner');
     if (!fit || !inner) return;
-    if (state.mode !== 'slide') { fit.style.transform = ''; return; }
+    if (state.mode !== 'slide') { fit.style.transform = ''; inner.style.justifyContent = 'center'; return; }
+
     fit.style.transform = 'none';
-    const avail = inner.clientHeight;
-    const need = fit.scrollHeight;
-    let s = 1;
-    if (need > avail && need > 0) s = Math.max(0.5, avail / need);
+    inner.style.justifyContent = 'center';
+
+    const avail = inner.clientHeight;       // ความสูงที่ใช้ได้จริง (ถูก cap โดย track)
+    const need = fit.scrollHeight;          // ความสูงเนื้อหาจริง
+
     fit.style.transformOrigin = 'top center';
-    fit.style.transform = s < 1 ? `scale(${s.toFixed(4)})` : 'none';
+    if (need > avail + 2 && avail > 0) {
+      const s = Math.max(0.3, avail / need);
+      inner.style.justifyContent = 'flex-start'; // ชิดบน เพื่อไม่ให้หัวเรื่องโดนตัด
+      fit.style.transform = `scale(${s.toFixed(4)})`;
+    } else {
+      fit.style.transform = 'none';
+    }
   }
   function refit() {
     const cur = slidesEls[state.current];

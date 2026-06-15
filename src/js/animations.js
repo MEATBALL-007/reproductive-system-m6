@@ -449,7 +449,7 @@
           </div>
           <div class="quiz__explain"></div>
         </div>`).join('')}
-      <div><span class="quiz__score">คะแนน: <span class="sc">0</span> / ${data.items.length}</span></div>
+      <div class="quiz__scorewrap"><span class="quiz__score">คะแนน: <span class="sc">0</span> / ${data.items.length}</span></div>
     </div>`;
 
     host.querySelectorAll('.quiz__q').forEach(qEl => {

@@ -37,7 +37,7 @@ b, strong { font-weight: 800; }
   min-height: 100svh;
   width: 100%;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   padding: clamp(2.2rem, 5vh, 4rem) clamp(1.2rem, 5vw, 4rem) clamp(3.4rem, 7vh, 5rem);
   overflow: hidden;
   background:
@@ -49,12 +49,13 @@ b, strong { font-weight: 800; }
   width: 100%;
   max-width: var(--maxw);
   margin: 0 auto;
-  align-self: center;
+  align-self: stretch;
   grid-row: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 0;
+  overflow: hidden;
 }
 /* ตัวห่อเนื้อหาที่ถูกย่อให้พอดีจอ (fit-to-screen) ในโหมด Slide */
 .fit { width: 100%; will-change: transform; }
@@ -292,22 +293,24 @@ ul.check li::before {
 .phase-tag { font-size: var(--fs-small); font-weight: 800; padding: 0.15rem 0.55rem; border-radius: 999px; }
 
 /* ============================ quiz ====================================== */
-.quiz { display: grid; gap: 1rem; }
+/* เรียงคำถามเป็น 2 คอลัมน์ เพื่อให้พอดีจอ (สูงน้อยลง อ่านง่าย) */
+.quiz { display: grid; gap: 0.7rem; grid-template-columns: repeat(2, 1fr); align-items: start; }
+.quiz__scorewrap { grid-column: 1 / -1; text-align: center; }
 .quiz__q {
   background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--r-md);
-  padding: clamp(1rem, 2vw, 1.4rem);
+  padding: clamp(0.7rem, 1.4vw, 1rem);
 }
-.quiz__q .qhead { display: flex; gap: 0.7rem; align-items: baseline; margin-bottom: 0.8rem; }
+.quiz__q .qhead { display: flex; gap: 0.6rem; align-items: baseline; margin-bottom: 0.6rem; }
 .quiz__q .qnum {
-  flex: none; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center;
-  background: var(--theme-tint); color: var(--accent); font-weight: 800;
+  flex: none; width: 1.7rem; height: 1.7rem; border-radius: 50%; display: grid; place-items: center;
+  background: var(--theme-tint); color: var(--accent); font-weight: 800; font-size: 0.9em;
 }
-.quiz__q .qtext { font-size: var(--fs-h3); font-weight: 800; }
-.quiz__opts { display: grid; gap: 0.55rem; }
+.quiz__q .qtext { font-size: clamp(0.98rem, 1.4vw, 1.2rem); font-weight: 800; line-height: 1.35; }
+.quiz__opts { display: grid; gap: 0.4rem; }
 .quiz__opt {
   text-align: left; font: inherit; cursor: pointer;
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.7rem 0.9rem; min-height: 3rem;
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.5rem 0.7rem; min-height: 2.5rem;
   background: var(--surface-2); color: var(--ink);
   border: 1.5px solid var(--stroke); border-radius: var(--r-sm); transition: all 0.18s;
 }
@@ -492,7 +495,7 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
 
 /* ============================ responsive =============================== */
 @media (max-width: 860px) {
-  .split, .compare, .grid.cols-2, .grid.cols-3, .grid.cols-4 { grid-template-columns: 1fr; }
+  .split, .compare, .grid.cols-2, .grid.cols-3, .grid.cols-4, .quiz { grid-template-columns: 1fr; }
   .ctl { width: min(92vw, 360px); }
   .ctl.right { right: 50%; transform: translateX(50%); bottom: 92px; }
   .ctl.left { left: 50%; transform: translateX(-50%); }
