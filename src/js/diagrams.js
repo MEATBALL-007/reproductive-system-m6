@@ -95,8 +95,31 @@
     });
   };
 
-  // ───────────────────────── ชาย: ภายใน (มุมมองด้านข้าง sagittal) ──────────
+  // ───── ชาย: ภายใน — ใช้ไดอะแกรม Wikimedia (มุมมองด้านข้าง) แปลไทย + ปรับสไตล์ ─────
   window.WIDGETS['diagram-male-internal'] = function (host) {
+    const legend = [
+      ['อัณฑะ', 'testis'], ['ท่อพักอสุจิ', 'epididymis'], ['ท่อนำอสุจิ', 'vas deferens'],
+      ['ถุงน้ำเลี้ยงอสุจิ', 'seminal vesicle'], ['ท่อฉีดอสุจิ', 'ejaculatory duct'],
+      ['ต่อมลูกหมาก', 'prostate gland'], ['ต่อมคาวเปอร์', 'bulbourethral gland'],
+      ['ท่อปัสสาวะ', 'urethra'], ['หัวองคชาต', 'glans penis'],
+      ['รูเปิดท่อปัสสาวะ', 'external urethral orifice'], ['ถุงอัณฑะ', 'scrotum'],
+      ['กระเพาะปัสสาวะ', 'urinary bladder'], ['ทวารหนัก', 'anus'], ['กระดูกหัวหน่าว', 'pubic bone'],
+      ['คอร์ปัสคาเวอร์โนซัม', 'corpus cavernosum'], ['คอร์ปัสสปอนจิโอซัม', 'corpus spongiosum'],
+      ['เอ็นแขวนองคชาต', 'suspensory ligament'], ['ถุงฝีเย็บชั้นลึก', 'deep perineal pouch'],
+    ];
+    const legendHtml = legend.map(p =>
+      `<div><b>${p[0]}</b> <span class="en">(${p[1]})</span></div>`).join('');
+    host.innerHTML =
+      `<div class="dgm9-card">${window.SVG_MALE_INTERNAL || '<p class=muted>โหลดไดอะแกรมไม่สำเร็จ</p>'}</div>
+       <details class="dgm9-legend-wrap" open>
+         <summary>คำศัพท์ ไทย–อังกฤษ (18 รายการ)</summary>
+         <div class="dgm9-legend">${legendHtml}</div>
+       </details>
+       <div class="hint dgm9-credit">ที่มา: ดัดแปลงจาก Wikimedia Commons — “Human male reproductive system” โดย Wumingbai (CC BY-SA 4.0) · แปลไทยและปรับสไตล์เพื่อการศึกษา</div>`;
+  };
+
+  // (เลิกใช้) ไดอะแกรมชายภายในแบบวาดเอง — เก็บไว้เป็นสำรอง
+  window.WIDGETS['diagram-male-internal-drawn'] = function (host) {
     makeDiagram(host, {
       viewBox: '0 0 760 580',
       aria: 'อวัยวะสืบพันธุ์ชายภายใน (มุมมองด้านข้าง)',

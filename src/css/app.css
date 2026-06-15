@@ -247,6 +247,27 @@ ul.check li::before {
 .diagram .infocard .fn { color: var(--ink-soft); margin-top: 0.3rem; }
 .diagram .hint { color: var(--ink-dim); font-size: var(--fs-small); }
 
+/* ไดอะแกรมชายภายใน (Wikimedia แปลไทย) */
+.dgm9-card {
+  background: #f4efe6; border: 1px solid var(--stroke-strong); border-radius: var(--r-lg);
+  padding: 0.8rem 1rem; box-shadow: var(--shadow-1);
+}
+.dgm9-card svg { width: 100%; height: auto; display: block; max-height: 50vh; }
+.dgm9-legend-wrap { margin-top: 0.7rem; }
+.dgm9-legend-wrap > summary {
+  cursor: pointer; font-weight: 800; color: var(--accent); font-size: var(--fs-small);
+  list-style: none; display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.7rem; border: 1px solid var(--stroke); border-radius: 999px; background: var(--surface);
+}
+.dgm9-legend-wrap > summary::before { content: "▸"; transition: transform 0.2s; }
+.dgm9-legend-wrap[open] > summary::before { transform: rotate(90deg); }
+.dgm9-legend {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.15rem 1rem;
+  margin-top: 0.6rem; font-size: var(--fs-small);
+}
+.dgm9-legend b { color: var(--ink); font-weight: 700; }
+.dgm9-credit { margin-top: 0.6rem; font-size: 0.78rem; }
+
 .organ-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.7rem; }
 .organ-list button {
   font: inherit; font-size: var(--fs-small); cursor: pointer;
@@ -496,6 +517,8 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
 /* ============================ responsive =============================== */
 @media (max-width: 860px) {
   .split, .compare, .grid.cols-2, .grid.cols-3, .grid.cols-4, .quiz { grid-template-columns: 1fr; }
+  .dgm9-legend { grid-template-columns: repeat(2, 1fr); }
+  .dgm9-card svg { max-height: none; }
   .ctl { width: min(92vw, 360px); }
   .ctl.right { right: 50%; transform: translateX(50%); bottom: 92px; }
   .ctl.left { left: 50%; transform: translateX(-50%); }

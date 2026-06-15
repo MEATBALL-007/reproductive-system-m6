@@ -155,6 +155,7 @@ DATA.references = [
   'Cleveland Clinic — Reproductive System anatomy & physiology (my.clevelandclinic.org)',
   'CDC — Sexually Transmitted Infections & HPV Vaccine (cdc.gov)',
   'Tortora & Derrickson — Principles of Anatomy and Physiology (ตำราอ้างอิงกายวิภาคศาสตร์)',
+  'ภาพไดอะแกรมอวัยวะสืบพันธุ์ชายภายใน (หน้า 9): ดัดแปลงจาก “Human male reproductive system” โดย Wumingbai, Wikimedia Commons (CC BY-SA 4.0) — แปลไทยและปรับสไตล์',
 ];
 
 /* ===========================================================================
@@ -323,7 +324,7 @@ DATA.slides.push({
 DATA.slides.push({
   theme: 'male', kicker: 'เพศชาย · กายวิภาค', ovTitle: 'อวัยวะชาย: ภายใน',
   speakers: [sp('ชิษณุพงศ์', 'กายวิภาคภายใน')],
-  html: head('อวัยวะสืบพันธุ์ชาย: ภายใน', 'เส้นทางของอสุจิ: อัณฑะ → ท่อพักอสุจิ → ท่อนำอสุจิ → ท่อปัสสาวะ') +
+  html: head('อวัยวะสืบพันธุ์ชาย: ภายใน', 'ไดอะแกรมมุมมองด้านข้าง (sagittal) — เส้นทางอสุจิ: อัณฑะ → ท่อพักอสุจิ → ท่อนำอสุจิ → ต่อมต่าง ๆ → ท่อปัสสาวะ') +
     `<div data-widget="diagram-male-internal" class="reveal d1"></div>`,
   notes: 'ภายในร่างกายมีอวัยวะที่ทำงานต่อเนื่องกันเป็นเส้นทางของอสุจิครับ เริ่มจากอัณฑะ (testis) ที่สร้างอสุจิ ส่งไปเก็บและทำให้เจริญเต็มที่ที่ท่อพักอสุจิ (epididymis) จากนั้นลำเลียงผ่านท่อนำอสุจิ (vas deferens)\nระหว่างทางมีต่อมสร้างน้ำเลี้ยง ได้แก่ ถุงน้ำเลี้ยงอสุจิ (seminal vesicle) ต่อมลูกหมาก (prostate) และต่อมคาวเปอร์ (bulbourethral) ก่อนออกทางท่อปัสสาวะ (urethra) ครับ',
 });
