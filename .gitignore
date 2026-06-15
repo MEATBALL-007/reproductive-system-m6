@@ -1,0 +1,13 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Node (ไม่มี deps แต่กันไว้)
+node_modules/
+npm-debug.log*
+
+# build ชั่วคราว
+/tmp/

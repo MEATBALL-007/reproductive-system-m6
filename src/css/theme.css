@@ -1,0 +1,98 @@
+/* ============================================================================
+   theme.css — โทเค็นดีไซน์ + ธีมสีตามส่วน
+   ภาพรวม = เขียว-ฟ้าวิทยาศาสตร์ · ชาย = น้ำเงิน/ฟ้าเข้ม · หญิง = ม่วง/พลัม
+   ============================================================================ */
+:root {
+  color-scheme: dark;
+
+  /* ── ฐานสี (พื้นหลังเข้ม โทนวิชาการ) ── */
+  --bg-0: #070b16;
+  --bg-1: #0b1222;
+  --bg-2: #111a2e;
+  --surface: rgba(255, 255, 255, 0.045);
+  --surface-2: rgba(255, 255, 255, 0.07);
+  --stroke: rgba(255, 255, 255, 0.12);
+  --stroke-strong: rgba(255, 255, 255, 0.22);
+
+  /* ── ข้อความ ── */
+  --ink: #eef4ff;
+  --ink-soft: #c2cfe2;
+  --ink-dim: #8597b3;
+
+  /* ── สีเน้น (ปรับตามธีมส่วน) ── */
+  --accent: #34d3a6;          /* default = overview */
+  --accent-2: #4cc3ff;
+  --accent-ink: #04150f;
+  --glow: rgba(52, 211, 166, 0.45);
+
+  /* ── สีความหมายเชิงเนื้อหา ── */
+  --good: #46d6a0;
+  --warn: #ffb454;
+  --danger: #ff7a8a;
+  --info: #5bb3ff;
+
+  /* ── ฮอร์โมน (ใช้ในกราฟ) ── */
+  --h-fsh: #4cc3ff;
+  --h-lh: #ffd166;
+  --h-estro: #b98cff;
+  --h-prog: #ff8fb0;
+  --h-testo: #4c8dff;
+
+  /* ── ระยะ/รัศมี/เงา ── */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 34px;
+  --shadow-1: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 24px 70px rgba(0, 0, 0, 0.5);
+  --ring: 0 0 0 1px var(--stroke);
+
+  /* ── มาตราตัวอักษร (clamp ให้พอดีจอ TV ระยะไกล) ── */
+  --fs-mega: clamp(2.6rem, 7vw, 5.4rem);
+  --fs-h1: clamp(2rem, 4.6vw, 3.6rem);
+  --fs-h2: clamp(1.5rem, 3vw, 2.4rem);
+  --fs-h3: clamp(1.2rem, 2vw, 1.6rem);
+  --fs-body: clamp(1.02rem, 1.5vw, 1.32rem);
+  --fs-small: clamp(0.86rem, 1.1vw, 1.02rem);
+
+  --maxw: 1180px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── ธีมต่อส่วน: ตั้งบน <section.slide data-theme="..."> ── */
+[data-theme="overview"] {
+  --accent: #34d3a6;
+  --accent-2: #4cc3ff;
+  --accent-ink: #04150f;
+  --glow: rgba(52, 211, 166, 0.40);
+  --theme-tint: rgba(52, 211, 166, 0.10);
+}
+[data-theme="male"] {
+  --accent: #4c8dff;
+  --accent-2: #58c8ff;
+  --accent-ink: #021024;
+  --glow: rgba(76, 141, 255, 0.42);
+  --theme-tint: rgba(76, 141, 255, 0.12);
+}
+[data-theme="female"] {
+  --accent: #b98cff;
+  --accent-2: #ff8fc4;
+  --accent-ink: #1a0726;
+  --glow: rgba(185, 140, 255, 0.42);
+  --theme-tint: rgba(185, 140, 255, 0.12);
+}
+[data-theme="prevent"] {
+  --accent: #36c5b0;
+  --accent-2: #7ed0ff;
+  --accent-ink: #03161a;
+  --glow: rgba(54, 197, 176, 0.40);
+  --theme-tint: rgba(54, 197, 176, 0.10);
+}
+[data-theme="summary"] {
+  --accent: #7fb3ff;
+  --accent-2: #34d3a6;
+  --accent-ink: #04132a;
+  --glow: rgba(127, 179, 255, 0.40);
+  --theme-tint: rgba(127, 179, 255, 0.10);
+}
