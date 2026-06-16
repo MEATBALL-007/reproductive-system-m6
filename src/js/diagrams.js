@@ -83,6 +83,44 @@
     });
   }
 
+  // ───── การ์ดอวัยวะ → หน้าที่ แบบ interactive (กดที่ชื่ออวัยวะเพื่อดูหน้าที่) ─────
+  //   ข้อมูลมาจาก DATA.organFn[key] โดย key อ่านจาก data-set
+  window.WIDGETS['organ-fn'] = function (host) {
+    const key = host.getAttribute('data-set');
+    const items = (typeof DATA !== 'undefined' && DATA.organFn && DATA.organFn[key]) || [];
+    if (!items.length) { host.innerHTML = '<p class="muted">ไม่พบข้อมูลอวัยวะ</p>'; return; }
+
+    host.innerHTML =
+      `<div class="hint organ-fn-hint">👆 กดที่ชื่ออวัยวะเพื่อดู “หน้าที่” · กดซ้ำเพื่อซ่อน · กด “ดูทั้งหมด” เพื่อเปิดพร้อมกัน</div>
+       <div class="organ-fn-grid">
+         ${items.map((o, i) => `
+           <button type="button" class="card organ-fn-card" data-i="${i}" aria-expanded="false">
+             <h3>${o.th} <span class="en">(${o.en})</span><span class="ofn-mk" aria-hidden="true">+</span></h3>
+             <p class="ofn-body muted">${o.fn}</p>
+           </button>`).join('')}
+       </div>
+       <div class="organ-fn-actions"><button type="button" class="organ-fn-all" data-all="0">ดูทั้งหมด</button></div>`;
+
+    const cards = Array.from(host.querySelectorAll('.organ-fn-card'));
+    cards.forEach(c => c.addEventListener('click', () => {
+      const open = c.classList.toggle('open');
+      c.setAttribute('aria-expanded', open ? 'true' : 'false');
+      syncAll();
+    }));
+
+    const allBtn = host.querySelector('.organ-fn-all');
+    function syncAll() {
+      const everyOpen = cards.every(c => c.classList.contains('open'));
+      allBtn.dataset.all = everyOpen ? '1' : '0';
+      allBtn.textContent = everyOpen ? 'ซ่อนทั้งหมด' : 'ดูทั้งหมด';
+    }
+    allBtn.addEventListener('click', () => {
+      const show = allBtn.dataset.all !== '1';
+      cards.forEach(c => { c.classList.toggle('open', show); c.setAttribute('aria-expanded', show ? 'true' : 'false'); });
+      syncAll();
+    });
+  };
+
   // ───────────────────────── ชาย: ภายนอก ─────────────────────────────────
   window.WIDGETS['diagram-male-external'] = function (host) {
     makeDiagram(host, {

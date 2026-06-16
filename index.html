@@ -237,6 +237,38 @@ b, strong { font-weight: 800; }
 .card h3 { font-size: var(--fs-h3); }
 .card .ic { font-size: 1.7rem; line-height: 1; }
 
+/* ── การ์ดอวัยวะ → หน้าที่ แบบ interactive (กดชื่อเพื่อดูหน้าที่) ───────────── */
+.organ-fn-hint { color: var(--ink-dim); font-size: var(--fs-small); margin-bottom: 0.7rem; }
+.organ-fn-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.6rem, 1.6vw, 1rem); }
+.organ-fn-card {
+  display: block; width: 100%; text-align: inherit; font: inherit; color: inherit;
+  cursor: pointer; appearance: none; -webkit-appearance: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.organ-fn-card:hover { border-color: var(--accent); }
+.organ-fn-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.organ-fn-card.open { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), var(--shadow-1); }
+.organ-fn-card h3 { display: flex; align-items: center; gap: 0.5rem; margin: 0; }
+.organ-fn-card .ofn-mk {
+  margin-left: auto; flex: none; width: 1.5rem; height: 1.5rem; display: grid; place-items: center;
+  border-radius: 50%; background: var(--theme-tint); color: var(--accent);
+  font-weight: 800; line-height: 1; transition: transform 0.2s ease;
+}
+.organ-fn-card.open .ofn-mk { transform: rotate(45deg); }
+.organ-fn-card .ofn-body {
+  margin: 0; overflow: hidden; max-height: 0; opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease, margin-top 0.25s ease;
+}
+.organ-fn-card.open .ofn-body { max-height: 14rem; opacity: 1; margin-top: 0.5rem; }
+.organ-fn-actions { margin-top: 0.8rem; }
+.organ-fn-all {
+  appearance: none; -webkit-appearance: none; cursor: pointer; font: inherit;
+  padding: 0.35rem 0.95rem; border-radius: 999px; font-weight: 700; font-size: var(--fs-small);
+  color: var(--ink-soft); background: var(--surface-2); border: 1px solid var(--stroke-strong);
+}
+.organ-fn-all:hover { border-color: var(--accent); color: var(--ink); }
+@media (max-width: 720px) { .organ-fn-grid { grid-template-columns: 1fr; } }
+
 .pill {
   display: inline-block; padding: 0.22rem 0.7rem; border-radius: 999px;
   font-size: var(--fs-small); font-weight: 800; border: 1px solid var(--stroke-strong);
@@ -771,8 +803,37 @@ DATA.references = [
   'ภาพไดอะแกรมเต้านม (หน้าเต้านม): ดัดแปลงจาก “Chest wall” และ “Lobes and ducts of a breast” โดย Cancer Research UK, Wikimedia Commons (CC BY-SA 4.0) — แปลไทยและปรับสไตล์',
 ];
 
+// ── ชุดข้อมูล "อวัยวะ → หน้าที่" สำหรับการ์ดแบบ interactive (กดชื่อเพื่อดูหน้าที่) ──
+//    ใช้โดย widget 'organ-fn' (diagrams.js) ผ่าน data-set="<key>"
+DATA.organFn = {
+  'male-internal': [
+    { th: 'อัณฑะ', en: 'testis', fn: 'สร้างอสุจิ และฮอร์โมนเทสโทสเตอโรน' },
+    { th: 'ท่อพักอสุจิ', en: 'epididymis', fn: 'เก็บอสุจิและทำให้เจริญเต็มที่จนเคลื่อนที่ได้' },
+    { th: 'ท่อนำอสุจิ', en: 'vas deferens', fn: 'ลำเลียงอสุจิจากท่อพักไปยังท่อปัสสาวะ' },
+    { th: 'ถุงน้ำเลี้ยงอสุจิ', en: 'seminal vesicle', fn: 'สร้างของเหลวมีน้ำตาลฟรุกโตส เป็นพลังงานให้อสุจิ' },
+    { th: 'ต่อมลูกหมาก', en: 'prostate', fn: 'สร้างของเหลวเป็นด่างอ่อน ช่วยอสุจิอยู่รอดในสภาพกรด' },
+    { th: 'ต่อมคาวเปอร์', en: 'bulbourethral', fn: 'หลั่งเมือกหล่อลื่นและทำความสะอาดท่อปัสสาวะ' },
+  ],
+  'male-external': [
+    { th: 'องคชาต', en: 'penis', fn: 'อวัยวะสืบพันธุ์ภายนอก เป็นทางผ่านร่วมของปัสสาวะและน้ำอสุจิ และนำอสุจิเข้าสู่ระบบสืบพันธุ์เพศหญิง' },
+    { th: 'หัวองคชาต', en: 'glans penis', fn: 'ส่วนปลายองคชาตที่ไวต่อความรู้สึก เป็นที่ตั้งของรูเปิดท่อปัสสาวะ' },
+    { th: 'หนังหุ้มปลายองคชาต', en: 'foreskin / prepuce', fn: 'ผิวหนังที่หุ้มและปกป้องหัวองคชาต รักษาความชุ่มชื้น (บางคนขลิบออกด้วยเหตุผลทางสุขอนามัย/ศาสนา)' },
+    { th: 'เนื้อเยื่อยึดปลายองคชาต', en: 'frenulum', fn: 'แถบเนื้อเยื่อใต้หัวองคชาตที่ยึดหนังหุ้มปลายไว้กับหัวองคชาต ไวต่อความรู้สึก (ภาษาพูดเรียก "เส้นสองสลึง")' },
+    { th: 'ถุงอัณฑะ', en: 'scrotum', fn: 'ถุงผิวหนังห่อหุ้มอัณฑะไว้ภายนอกช่องท้อง คอยปรับอุณหภูมิให้ต่ำกว่าร่างกายเล็กน้อย เหมาะกับการสร้างอสุจิ' },
+    { th: 'ท่อปัสสาวะ', en: 'urethra', fn: 'ท่อร่วมภายในองคชาต ลำเลียงทั้งปัสสาวะและน้ำอสุจิออกนอกร่างกาย (แต่ไม่ออกพร้อมกัน)' },
+  ],
+  'female': [
+    { th: 'รังไข่', en: 'ovary', fn: 'สร้างไข่ (ovum) และฮอร์โมนเอสโตรเจน/โปรเจสเตอโรน' },
+    { th: 'ท่อนำไข่', en: 'fallopian tube', fn: 'รับไข่ที่ตกและเป็นตำแหน่งที่เกิดการปฏิสนธิ' },
+    { th: 'มดลูก', en: 'uterus', fn: 'เป็นที่ฝังตัวและเจริญเติบโตของตัวอ่อนจนคลอด' },
+    { th: 'เยื่อบุโพรงมดลูก', en: 'endometrium', fn: 'หนาตัวรองรับการฝังตัว หากไม่ปฏิสนธิจะลอกเป็นประจำเดือน' },
+    { th: 'ปากมดลูก', en: 'cervix', fn: 'เชื่อมมดลูกกับช่องคลอด ผลิตมูกและเป็นด่านป้องกัน' },
+    { th: 'ช่องคลอด', en: 'vagina', fn: 'ทางผ่านของประจำเดือน การร่วมเพศ และเป็นช่องทางคลอด' },
+  ],
+};
+
 /* ===========================================================================
-   สไลด์ทั้งหมด (26)
+   สไลด์ทั้งหมด (29)
    =========================================================================== */
 DATA.slides = [];
 
@@ -920,16 +981,36 @@ DATA.slides.push({
   theme: 'male', kicker: 'เพศชาย · หน้าที่', ovTitle: 'หน้าที่อวัยวะชาย',
   speakers: [sp('วรดร', 'หน้าที่อวัยวะชาย')],
   html: head('หน้าที่ของอวัยวะสืบพันธุ์ชาย') +
-    `<div class="grid cols-2" style="margin-top:.6rem">
-      <div class="card reveal d1"><h3>อัณฑะ <span class="en">(testis)</span></h3><p class="muted">สร้างอสุจิ และฮอร์โมนเทสโทสเตอโรน</p></div>
-      <div class="card reveal d1"><h3>ท่อพักอสุจิ <span class="en">(epididymis)</span></h3><p class="muted">เก็บอสุจิและทำให้เจริญเต็มที่จนเคลื่อนที่ได้</p></div>
-      <div class="card reveal d2"><h3>ท่อนำอสุจิ <span class="en">(vas deferens)</span></h3><p class="muted">ลำเลียงอสุจิจากท่อพักไปยังท่อปัสสาวะ</p></div>
-      <div class="card reveal d2"><h3>ถุงน้ำเลี้ยงอสุจิ <span class="en">(seminal vesicle)</span></h3><p class="muted">สร้างของเหลวมีน้ำตาลฟรุกโตส เป็นพลังงานให้อสุจิ</p></div>
-      <div class="card reveal d3"><h3>ต่อมลูกหมาก <span class="en">(prostate)</span></h3><p class="muted">สร้างของเหลวเป็นด่างอ่อน ช่วยอสุจิอยู่รอดในสภาพกรด</p></div>
-      <div class="card reveal d3"><h3>ต่อมคาวเปอร์ <span class="en">(bulbourethral)</span></h3><p class="muted">หลั่งเมือกหล่อลื่นและทำความสะอาดท่อปัสสาวะ</p></div>
-    </div>
+    `<div data-widget="organ-fn" data-set="male-internal" class="reveal d1"></div>
     <div class="note-box reveal d4" style="margin-top:.9rem">น้ำอสุจิ (semen) = อสุจิ + ของเหลวจากต่อมต่าง ๆ ในการหลั่งหนึ่งครั้งมีอสุจิหลายสิบถึงหลายร้อยล้านตัว</div>`,
   notes: 'มาดูหน้าที่ของแต่ละอวัยวะกันครับ อัณฑะสร้างอสุจิและฮอร์โมนเพศชาย ท่อพักอสุจิเก็บและทำให้อสุจิเจริญเต็มที่จนว่ายน้ำได้ ท่อนำอสุจิทำหน้าที่ลำเลียง\nส่วนต่อมต่าง ๆ สร้างของเหลวมาผสม เช่น ถุงน้ำเลี้ยงให้น้ำตาลฟรุกโตสเป็นพลังงาน ต่อมลูกหมากสร้างของเหลวเป็นด่างช่วยให้อสุจิอยู่รอด และต่อมคาวเปอร์หลั่งเมือกหล่อลื่น เมื่อรวมกันทั้งหมดเรียกว่าน้ำอสุจิครับ',
+});
+
+// ---------- S10b หน้าที่อวัยวะชาย (ต่อ): ส่วนภายนอก & องคชาต ----------
+DATA.slides.push({
+  theme: 'male', kicker: 'เพศชาย · หน้าที่ (ต่อ)', ovTitle: 'หน้าที่อวัยวะชาย: ส่วนภายนอก',
+  speakers: [sp('วรดร', 'หน้าที่อวัยวะชาย (ต่อ)')],
+  html: head('หน้าที่อวัยวะสืบพันธุ์ชาย (ต่อ): ส่วนภายนอก & องคชาต', 'เสริมจากหน้าก่อน — ส่วนที่ยังไม่ได้กล่าวถึง') +
+    `<div data-widget="organ-fn" data-set="male-external" class="reveal d1"></div>
+    <div class="note-box reveal d4" style="margin-top:.9rem">รวมกับหน้าก่อน: ระบบสืบพันธุ์ชายแบ่งเป็น <b>อวัยวะภายใน</b> (อัณฑะ ท่อพัก/ท่อนำอสุจิ ต่อมต่าง ๆ) และ <b>อวัยวะภายนอก</b> (องคชาต ถุงอัณฑะ) ทำงานร่วมกันเพื่อสร้างและลำเลียงอสุจิ</div>`,
+  notes: 'หน้านี้เป็นส่วนต่อของหน้าที่อวัยวะชายครับ เน้นส่วนภายนอกที่ยังไม่ได้พูดถึง\nองคชาตเป็นอวัยวะสืบพันธุ์ภายนอก เป็นทางผ่านร่วมของทั้งปัสสาวะและน้ำอสุจิ ส่วนปลายเรียกหัวองคชาตซึ่งไวต่อความรู้สึกและมีรูเปิดท่อปัสสาวะ มีหนังหุ้มปลายคอยปกป้อง และมีเนื้อเยื่อยึดปลายองคชาตหรือ frenulum ที่ภาษาพูดเรียกว่าเส้นสองสลึงครับ ส่วนถุงอัณฑะคอยปรับอุณหภูมิให้เหมาะกับการสร้างอสุจิ และท่อปัสสาวะเป็นท่อร่วมลำเลียงปัสสาวะและน้ำอสุจิ แต่ไม่ออกพร้อมกันครับ',
+});
+
+// ---------- S10c การดูแลรักษาอวัยวะสืบพันธุ์ชาย ----------
+DATA.slides.push({
+  theme: 'male', kicker: 'เพศชาย · การดูแลรักษา', ovTitle: 'การดูแลรักษาอวัยวะชาย',
+  speakers: [sp('ณพนพัธร์', 'การดูแลรักษาอวัยวะชาย')],
+  html: head('การดูแลรักษาอวัยวะสืบพันธุ์ชาย', 'ดูแลให้สะอาด ปลอดภัย และตรวจเช็กตนเองสม่ำเสมอ เพื่อสุขภาพการเจริญพันธุ์ที่ดี') +
+    `<div class="grid cols-2" style="margin-top:.6rem">
+      <div class="card tint reveal d1"><div class="ic">🚿</div><h3>รักษาความสะอาด</h3><p class="muted">อาบน้ำทำความสะอาดทุกวัน ล้างใต้หนังหุ้มปลายองคชาตเบา ๆ แล้วเช็ดให้แห้ง ลดการหมักหมมและการอักเสบ</p></div>
+      <div class="card tint reveal d1"><div class="ic">🩲</div><h3>เลือกเครื่องแต่งกายให้เหมาะ</h3><p class="muted">สวมกางเกงในที่สะอาด เปลี่ยนทุกวัน ไม่รัดแน่นเกินไป ระบายอากาศดี ช่วยควบคุมอุณหภูมิอัณฑะ</p></div>
+      <div class="card tint reveal d2"><div class="ic">🤚</div><h3>ตรวจอัณฑะด้วยตนเอง (TSE)</h3><p class="muted">คลำตรวจเดือนละครั้งหลังอาบน้ำอุ่น สังเกตก้อนแข็ง บวม หรือเจ็บผิดปกติ พบเร็วรักษาได้ทันท่วงที</p></div>
+      <div class="card tint reveal d2"><div class="ic">🛡️</div><h3>ป้องกันการบาดเจ็บ & โรคติดต่อ</h3><p class="muted">ใส่อุปกรณ์ป้องกันเวลาเล่นกีฬาที่ปะทะ และใช้ถุงยางอนามัยทุกครั้งเพื่อป้องกันโรคติดต่อทางเพศสัมพันธ์ (STIs)</p></div>
+      <div class="card tint reveal d3"><div class="ic">🥗</div><h3>สุขภาพโดยรวม</h3><p class="muted">กินอาหารครบหมู่ ออกกำลังกายสม่ำเสมอ พักผ่อนเพียงพอ งดบุหรี่และแอลกอฮอล์ ช่วยสมดุลฮอร์โมนและคุณภาพอสุจิ</p></div>
+      <div class="card tint reveal d3"><div class="ic">🩺</div><h3>ตรวจสุขภาพ & วัคซีน</h3><p class="muted">พบแพทย์เมื่อมีอาการผิดปกติ ฉีดวัคซีน HPV ตามคำแนะนำ และตรวจสุขภาพประจำปีเมื่ออายุมากขึ้น</p></div>
+    </div>
+    <div class="note-box warn reveal d4" style="margin-top:.9rem">⚠️ ควรรีบพบแพทย์เมื่อ: คลำพบก้อนหรือบวมที่อัณฑะ เจ็บปวดเรื้อรัง ปัสสาวะแสบขัด/มีเลือดปน หรือมีสารคัดหลั่งผิดปกติ — อย่าปล่อยไว้หรืออายที่จะปรึกษา</div>`,
+  notes: 'การดูแลรักษาอวัยวะสืบพันธุ์ชายเป็นเรื่องสำคัญที่หลายคนมองข้ามครับ หลัก ๆ มีไม่กี่ข้อ\nหนึ่ง รักษาความสะอาด อาบน้ำทุกวันและล้างใต้หนังหุ้มปลายให้สะอาดแล้วเช็ดให้แห้ง สอง สวมกางเกงในสะอาดที่ไม่รัดแน่นเพื่อช่วยระบายอากาศและควบคุมอุณหภูมิอัณฑะ สาม คลำตรวจอัณฑะด้วยตนเองเดือนละครั้ง ถ้าพบก้อนหรือความผิดปกติให้รีบพบแพทย์ สี่ ป้องกันการบาดเจ็บเวลาเล่นกีฬาและใช้ถุงยางป้องกันโรคติดต่อ ห้า ดูแลสุขภาพโดยรวมทั้งอาหาร การออกกำลังกาย การพักผ่อน และงดบุหรี่แอลกอฮอล์ และสุดท้ายอย่าอายที่จะพบแพทย์เมื่อมีอาการผิดปกตินะครับ',
 });
 
 // ---------- S11 ฮอร์โมนเพศชาย ----------
@@ -1082,14 +1163,7 @@ DATA.slides.push({
   theme: 'female', kicker: 'เพศหญิง · หน้าที่', ovTitle: 'หน้าที่อวัยวะหญิง',
   speakers: [sp('อรณิชชา', 'หน้าที่อวัยวะหญิง')],
   html: head('หน้าที่ของอวัยวะสืบพันธุ์หญิง') +
-    `<div class="grid cols-2" style="margin-top:.6rem">
-      <div class="card reveal d1"><h3>รังไข่ <span class="en">(ovary)</span></h3><p class="muted">สร้างไข่ (ovum) และฮอร์โมนเอสโตรเจน/โปรเจสเตอโรน</p></div>
-      <div class="card reveal d1"><h3>ท่อนำไข่ <span class="en">(fallopian tube)</span></h3><p class="muted">รับไข่ที่ตกและเป็นตำแหน่งที่เกิดการปฏิสนธิ</p></div>
-      <div class="card reveal d2"><h3>มดลูก <span class="en">(uterus)</span></h3><p class="muted">เป็นที่ฝังตัวและเจริญเติบโตของตัวอ่อนจนคลอด</p></div>
-      <div class="card reveal d2"><h3>เยื่อบุโพรงมดลูก <span class="en">(endometrium)</span></h3><p class="muted">หนาตัวรองรับการฝังตัว หากไม่ปฏิสนธิจะลอกเป็นประจำเดือน</p></div>
-      <div class="card reveal d3"><h3>ปากมดลูก <span class="en">(cervix)</span></h3><p class="muted">เชื่อมมดลูกกับช่องคลอด ผลิตมูกและเป็นด่านป้องกัน</p></div>
-      <div class="card reveal d3"><h3>ช่องคลอด <span class="en">(vagina)</span></h3><p class="muted">ทางผ่านของประจำเดือน การร่วมเพศ และเป็นช่องทางคลอด</p></div>
-    </div>`,
+    `<div data-widget="organ-fn" data-set="female" class="reveal d1"></div>`,
   notes: 'หน้าที่ของอวัยวะเพศหญิงแต่ละส่วนนะคะ รังไข่สร้างไข่และฮอร์โมนเพศหญิง ท่อนำไข่รับไข่ที่ตกและเป็นที่เกิดการปฏิสนธิ มดลูกเป็นที่ฝังตัวและเจริญของทารก เยื่อบุโพรงมดลูกหนาตัวเพื่อรองรับการฝังตัว ถ้าไม่มีการปฏิสนธิก็จะลอกออกมาเป็นประจำเดือน ปากมดลูกเป็นด่านเชื่อมและป้องกัน ส่วนช่องคลอดเป็นทางผ่านของประจำเดือนและเป็นช่องทางคลอดค่ะ',
 });
 
@@ -1382,6 +1456,44 @@ window.SVG_BREAST_LOBES = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"ht
       b.addEventListener('click', () => select(b.dataset.id));
     });
   }
+
+  // ───── การ์ดอวัยวะ → หน้าที่ แบบ interactive (กดที่ชื่ออวัยวะเพื่อดูหน้าที่) ─────
+  //   ข้อมูลมาจาก DATA.organFn[key] โดย key อ่านจาก data-set
+  window.WIDGETS['organ-fn'] = function (host) {
+    const key = host.getAttribute('data-set');
+    const items = (typeof DATA !== 'undefined' && DATA.organFn && DATA.organFn[key]) || [];
+    if (!items.length) { host.innerHTML = '<p class="muted">ไม่พบข้อมูลอวัยวะ</p>'; return; }
+
+    host.innerHTML =
+      `<div class="hint organ-fn-hint">👆 กดที่ชื่ออวัยวะเพื่อดู “หน้าที่” · กดซ้ำเพื่อซ่อน · กด “ดูทั้งหมด” เพื่อเปิดพร้อมกัน</div>
+       <div class="organ-fn-grid">
+         ${items.map((o, i) => `
+           <button type="button" class="card organ-fn-card" data-i="${i}" aria-expanded="false">
+             <h3>${o.th} <span class="en">(${o.en})</span><span class="ofn-mk" aria-hidden="true">+</span></h3>
+             <p class="ofn-body muted">${o.fn}</p>
+           </button>`).join('')}
+       </div>
+       <div class="organ-fn-actions"><button type="button" class="organ-fn-all" data-all="0">ดูทั้งหมด</button></div>`;
+
+    const cards = Array.from(host.querySelectorAll('.organ-fn-card'));
+    cards.forEach(c => c.addEventListener('click', () => {
+      const open = c.classList.toggle('open');
+      c.setAttribute('aria-expanded', open ? 'true' : 'false');
+      syncAll();
+    }));
+
+    const allBtn = host.querySelector('.organ-fn-all');
+    function syncAll() {
+      const everyOpen = cards.every(c => c.classList.contains('open'));
+      allBtn.dataset.all = everyOpen ? '1' : '0';
+      allBtn.textContent = everyOpen ? 'ซ่อนทั้งหมด' : 'ดูทั้งหมด';
+    }
+    allBtn.addEventListener('click', () => {
+      const show = allBtn.dataset.all !== '1';
+      cards.forEach(c => { c.classList.toggle('open', show); c.setAttribute('aria-expanded', show ? 'true' : 'false'); });
+      syncAll();
+    });
+  };
 
   // ───────────────────────── ชาย: ภายนอก ─────────────────────────────────
   window.WIDGETS['diagram-male-external'] = function (host) {
