@@ -78,7 +78,7 @@ DATA.slides.push({
   speakers: [sp('ภัฏ', 'กล่าวเปิด · ผู้จัดทำสื่อ')],
   html: `<div class="cover">
     <div class="eyebrow reveal">${DATA.meta.subject} · ${DATA.meta.level}</div>
-    <h1 class="reveal d1 scale">${DATA.meta.title}</h1>
+    <h1 class="reveal d1 scale">${DATA.meta.title.replace('ของมนุษย์', '<wbr>ของมนุษย์')}</h1>
     <div class="sub reveal d2">${DATA.meta.titleEn}</div>
     <div class="reveal d3"><span class="pill info">${DATA.meta.school}</span></div>
     <div class="members reveal d4">

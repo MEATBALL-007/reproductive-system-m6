@@ -25,6 +25,8 @@ const Engine = (function () {
   const initialized = new WeakSet();
 
   // ── utils ──────────────────────────────────────────────────────────────
+  // จอเล็ก/มือถือ: เปลี่ยนพฤติกรรมให้เหมาะ (เลื่อนอ่านแทนการย่อ, แผงควบคุมเดียว)
+  const SMALL = () => window.matchMedia('(max-width: 700px)').matches;
   const $ = (sel, root = document) => root.querySelector(sel);
   const el = (tag, cls, html) => {
     const n = document.createElement(tag);
@@ -119,7 +121,8 @@ const Engine = (function () {
     const fit = slide.querySelector('.fit');
     const inner = slide.querySelector('.slide__inner');
     if (!fit || !inner) return;
-    if (state.mode !== 'slide') { fit.style.transform = ''; inner.style.justifyContent = 'center'; return; }
+    // จอเล็ก/มือถือ: ไม่ย่อเนื้อหา (จะเล็กเกินอ่าน) — ให้เลื่อนภายในสไลด์แทน
+    if (state.mode !== 'slide' || SMALL()) { fit.style.transform = ''; inner.style.justifyContent = 'center'; return; }
 
     fit.style.transform = 'none';
     inner.style.justifyContent = 'center';
@@ -159,6 +162,9 @@ const Engine = (function () {
       requestAnimationFrame(() => fitSlide(cur));
       setTimeout(() => fitSlide(cur), 260);
     } else if (opts.scroll) {
+      // โหมดเลื่อน: บังคับเผยเนื้อหา + เริ่ม widget ของสไลด์เป้าหมายให้ชัวร์ (ไม่รอ IO)
+      revealAll(slidesEls[i]);
+      initWidgets(slidesEls[i]);
       slidesEls[i].scrollIntoView({ behavior: state.motion ? 'smooth' : 'auto', block: 'start' });
     }
     updateUI();
@@ -294,6 +300,7 @@ const Engine = (function () {
   function makeResizable(panel, handle) {
     let sx = 0, sy = 0, base = 1, active = false;
     handle.addEventListener('pointerdown', e => {
+      if (SMALL()) return;                 // มือถือ: ปิดการปรับขนาด
       e.stopPropagation();
       active = true;
       handle.setPointerCapture(e.pointerId);
@@ -342,6 +349,7 @@ const Engine = (function () {
   function makeDraggable(panel, handle) {
     let sx = 0, sy = 0, ox = 0, oy = 0, dragging = false;
     handle.addEventListener('pointerdown', e => {
+      if (SMALL()) return;                 // มือถือ: แผงควบคุมยึดอยู่กับที่ ไม่ลาก
       if (e.target.closest('.ctl__min')) return;
       dragging = true;
       handle.setPointerCapture(e.pointerId);
@@ -484,6 +492,7 @@ const Engine = (function () {
   function boot() {
     const prefs = loadPrefs();
     if (prefs.mode) state.mode = prefs.mode;
+    else if (SMALL()) state.mode = 'scroll';   // มือถือ: เริ่มที่โหมดเลื่อน (อ่านง่ายกว่า)
     if (prefs.motion === false) state.motion = false;
 
     const bf = document.getElementById('boot-fallback');

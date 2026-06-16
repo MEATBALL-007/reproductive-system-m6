@@ -521,6 +521,7 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
 }
 
 /* ============================ responsive =============================== */
+/* แท็บเล็ต */
 @media (max-width: 860px) {
   .split, .compare, .grid.cols-2, .grid.cols-3, .grid.cols-4, .quiz { grid-template-columns: 1fr; }
   .dgm9-legend { grid-template-columns: repeat(2, 1fr); }
@@ -529,9 +530,47 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
   .ctl.right { right: 50%; transform: translateX(50%); bottom: 92px; }
   .ctl.left { left: 50%; transform: translateX(-50%); }
 }
+
+/* มือถือ: แผงควบคุมเดียวเป็นแถบล่างเต็มกว้าง + เลื่อนอ่านแทนการย่อ */
+@media (max-width: 700px) {
+  .ctl.right { display: none; }
+  .ctl.left {
+    left: 8px; right: 8px; bottom: 8px; width: auto;
+    transform: none !important; border-radius: var(--r-md);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .ctl__bar { cursor: default; }
+  .ctl__grip, .ctl__resize { display: none; }
+  .ctl__tools { grid-template-columns: repeat(3, 1fr); }
+  .ctl__tool { min-height: 2.9rem; }
+
+  /* โหมดสไลด์บนมือถือ: เลื่อนภายในสไลด์ ไม่ย่อตัวอักษร */
+  .fit { transform: none !important; }
+  body.mode-slide .slide__inner { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+  /* เผื่อพื้นที่ให้แถบควบคุมล่างไม่บังเนื้อหา */
+  .slide { padding-bottom: 7.5rem; }
+  #notes { max-height: 52vh; }
+  #toast { white-space: nowrap; max-width: 92vw; }
+}
+
 @media (max-width: 560px) {
-  .cover h1 { font-size: clamp(2rem, 11vw, 3rem); }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; word-break: break-word; }
+  .cover > * { max-width: 100%; min-width: 0; }
+  .cover h1 { font-size: clamp(1.5rem, 7.6vw, 2.3rem); line-height: 1.15; }
+  .cover .eyebrow { letter-spacing: 0.1em; font-size: 0.7rem; }
+  .cover .sub { font-size: 1rem; }
+  .title-xl { font-size: clamp(1.45rem, 6.2vw, 2.1rem); }
+  .lead { font-size: 0.96rem; }
   .speaker-chip .role { display: none; }
+  .slide__top .kicker { font-size: 0.72rem; }
+  .slide { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* จอเล็กมาก: เครื่องมือเหลือไอคอน */
+@media (max-width: 430px) {
+  .ctl__tool .lbl { display: none; }
+  .ctl__counter { font-size: 0.95rem; }
 }
 
 /* พิมพ์ (สำรอง) */

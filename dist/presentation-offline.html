@@ -639,6 +639,7 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
 }
 
 /* ============================ responsive =============================== */
+/* แท็บเล็ต */
 @media (max-width: 860px) {
   .split, .compare, .grid.cols-2, .grid.cols-3, .grid.cols-4, .quiz { grid-template-columns: 1fr; }
   .dgm9-legend { grid-template-columns: repeat(2, 1fr); }
@@ -647,9 +648,47 @@ body.reduce-motion .reveal { opacity: 1 !important; transform: none !important; 
   .ctl.right { right: 50%; transform: translateX(50%); bottom: 92px; }
   .ctl.left { left: 50%; transform: translateX(-50%); }
 }
+
+/* มือถือ: แผงควบคุมเดียวเป็นแถบล่างเต็มกว้าง + เลื่อนอ่านแทนการย่อ */
+@media (max-width: 700px) {
+  .ctl.right { display: none; }
+  .ctl.left {
+    left: 8px; right: 8px; bottom: 8px; width: auto;
+    transform: none !important; border-radius: var(--r-md);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .ctl__bar { cursor: default; }
+  .ctl__grip, .ctl__resize { display: none; }
+  .ctl__tools { grid-template-columns: repeat(3, 1fr); }
+  .ctl__tool { min-height: 2.9rem; }
+
+  /* โหมดสไลด์บนมือถือ: เลื่อนภายในสไลด์ ไม่ย่อตัวอักษร */
+  .fit { transform: none !important; }
+  body.mode-slide .slide__inner { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+  /* เผื่อพื้นที่ให้แถบควบคุมล่างไม่บังเนื้อหา */
+  .slide { padding-bottom: 7.5rem; }
+  #notes { max-height: 52vh; }
+  #toast { white-space: nowrap; max-width: 92vw; }
+}
+
 @media (max-width: 560px) {
-  .cover h1 { font-size: clamp(2rem, 11vw, 3rem); }
+  h1, h2, h3, p, li { overflow-wrap: anywhere; word-break: break-word; }
+  .cover > * { max-width: 100%; min-width: 0; }
+  .cover h1 { font-size: clamp(1.5rem, 7.6vw, 2.3rem); line-height: 1.15; }
+  .cover .eyebrow { letter-spacing: 0.1em; font-size: 0.7rem; }
+  .cover .sub { font-size: 1rem; }
+  .title-xl { font-size: clamp(1.45rem, 6.2vw, 2.1rem); }
+  .lead { font-size: 0.96rem; }
   .speaker-chip .role { display: none; }
+  .slide__top .kicker { font-size: 0.72rem; }
+  .slide { padding-left: 1rem; padding-right: 1rem; }
+}
+
+/* จอเล็กมาก: เครื่องมือเหลือไอคอน */
+@media (max-width: 430px) {
+  .ctl__tool .lbl { display: none; }
+  .ctl__counter { font-size: 0.95rem; }
 }
 
 /* พิมพ์ (สำรอง) */
@@ -748,7 +787,7 @@ DATA.slides.push({
   speakers: [sp('ภัฏ', 'กล่าวเปิด · ผู้จัดทำสื่อ')],
   html: `<div class="cover">
     <div class="eyebrow reveal">${DATA.meta.subject} · ${DATA.meta.level}</div>
-    <h1 class="reveal d1 scale">${DATA.meta.title}</h1>
+    <h1 class="reveal d1 scale">${DATA.meta.title.replace('ของมนุษย์', '<wbr>ของมนุษย์')}</h1>
     <div class="sub reveal d2">${DATA.meta.titleEn}</div>
     <div class="reveal d3"><span class="pill info">${DATA.meta.school}</span></div>
     <div class="members reveal d4">
@@ -2031,6 +2070,8 @@ const Engine = (function () {
   const initialized = new WeakSet();
 
   // ── utils ──────────────────────────────────────────────────────────────
+  // จอเล็ก/มือถือ: เปลี่ยนพฤติกรรมให้เหมาะ (เลื่อนอ่านแทนการย่อ, แผงควบคุมเดียว)
+  const SMALL = () => window.matchMedia('(max-width: 700px)').matches;
   const $ = (sel, root = document) => root.querySelector(sel);
   const el = (tag, cls, html) => {
     const n = document.createElement(tag);
@@ -2125,7 +2166,8 @@ const Engine = (function () {
     const fit = slide.querySelector('.fit');
     const inner = slide.querySelector('.slide__inner');
     if (!fit || !inner) return;
-    if (state.mode !== 'slide') { fit.style.transform = ''; inner.style.justifyContent = 'center'; return; }
+    // จอเล็ก/มือถือ: ไม่ย่อเนื้อหา (จะเล็กเกินอ่าน) — ให้เลื่อนภายในสไลด์แทน
+    if (state.mode !== 'slide' || SMALL()) { fit.style.transform = ''; inner.style.justifyContent = 'center'; return; }
 
     fit.style.transform = 'none';
     inner.style.justifyContent = 'center';
@@ -2165,6 +2207,9 @@ const Engine = (function () {
       requestAnimationFrame(() => fitSlide(cur));
       setTimeout(() => fitSlide(cur), 260);
     } else if (opts.scroll) {
+      // โหมดเลื่อน: บังคับเผยเนื้อหา + เริ่ม widget ของสไลด์เป้าหมายให้ชัวร์ (ไม่รอ IO)
+      revealAll(slidesEls[i]);
+      initWidgets(slidesEls[i]);
       slidesEls[i].scrollIntoView({ behavior: state.motion ? 'smooth' : 'auto', block: 'start' });
     }
     updateUI();
@@ -2300,6 +2345,7 @@ const Engine = (function () {
   function makeResizable(panel, handle) {
     let sx = 0, sy = 0, base = 1, active = false;
     handle.addEventListener('pointerdown', e => {
+      if (SMALL()) return;                 // มือถือ: ปิดการปรับขนาด
       e.stopPropagation();
       active = true;
       handle.setPointerCapture(e.pointerId);
@@ -2348,6 +2394,7 @@ const Engine = (function () {
   function makeDraggable(panel, handle) {
     let sx = 0, sy = 0, ox = 0, oy = 0, dragging = false;
     handle.addEventListener('pointerdown', e => {
+      if (SMALL()) return;                 // มือถือ: แผงควบคุมยึดอยู่กับที่ ไม่ลาก
       if (e.target.closest('.ctl__min')) return;
       dragging = true;
       handle.setPointerCapture(e.pointerId);
@@ -2490,6 +2537,7 @@ const Engine = (function () {
   function boot() {
     const prefs = loadPrefs();
     if (prefs.mode) state.mode = prefs.mode;
+    else if (SMALL()) state.mode = 'scroll';   // มือถือ: เริ่มที่โหมดเลื่อน (อ่านง่ายกว่า)
     if (prefs.motion === false) state.motion = false;
 
     const bf = document.getElementById('boot-fallback');
