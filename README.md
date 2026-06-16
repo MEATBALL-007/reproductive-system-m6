@@ -14,7 +14,6 @@
 - **ไดอะแกรม SVG แบบ interactive**: คลิก/แตะ hotspot ดูชื่อ (ไทย+อังกฤษ) และหน้าที่ — มีทั้งภายนอก/ภายใน ทั้งชายและหญิง
 - **แอนิเมชันกระบวนการ**: การสร้างอสุจิ (spermatogenesis), การเดินทางอสุจิ → การปฏิสนธิ, รอบประจำเดือน (interactive), การสร้างไข่ (oogenesis) + การตกไข่
 - **กราฟ interactive**: ฮอร์โมนเพศชายตามอายุ และฮอร์โมน 4 ชนิดในรอบประจำเดือน (ลากแถบเลื่อน "วัน")
-- **Quiz เฉลยทันที**: ท้ายส่วนชาย ท้ายส่วนหญิง และ quiz รวมท้ายบท
 - **Speaker notes** ต่อสไลด์ (เปิด/ปิดด้วยคีย์ `N` — เห็นเฉพาะผู้พูด)
 - **หน้าต่างควบคุมลอย 2 อัน** ลากย้าย/ย่อได้ (รองรับจอสัมผัส TV ด้วย Pointer Events) สำหรับผู้พูดหลายคน
 - **ป้ายผู้พูด** มุมสไลด์, เลขสไลด์อัตโนมัติ, progress bar, ปุ่ม **Motion** (ลดแอนิเมชัน), หน้า **Overview** รวมสไลด์
@@ -53,10 +52,10 @@ build จะตรวจอัตโนมัติว่าไม่มี `typ
 src/
   template.html        โครง HTML (มี placeholder <!--STYLES--> / <!--SCRIPTS-->)
   css/theme.css        โทเค็นดีไซน์ + ธีมสีตามส่วน
-  css/app.css          layout, ระบบสไลด์, แอนิเมชัน, ควบคุม, quiz, hotspot
-  js/data.js           เนื้อหา 30 สไลด์ + ทีม + quiz + อ้างอิง
+  css/app.css          layout, ระบบสไลด์, แอนิเมชัน, ควบคุม, hotspot
+  js/data.js           เนื้อหา 26 สไลด์ + ทีม + อ้างอิง
   js/diagrams.js       ไดอะแกรม SVG แบบ hotspot (ชาย/หญิง ภายนอก/ภายใน)
-  js/animations.js     แอนิเมชันกระบวนการ + กราฟ + quiz engine
+  js/animations.js     แอนิเมชันกระบวนการ + กราฟ
   js/engine.js         kinetic engine (โหมด, นำทาง, ควบคุมลอย, โน้ต, overview)
   js/main.js           bootstrap
   assets/fonts/        ฟอนต์ Sarabun (woff2) ฝังลงไฟล์ตอน build

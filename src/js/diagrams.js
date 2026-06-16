@@ -6,6 +6,22 @@
 
 (function () {
 
+  // ───── เต้านม: ใช้ไดอะแกรม Cancer Research UK (แปลไทย) 2 ภาพ ─────
+  window.WIDGETS['diagram-breast'] = function (host) {
+    host.innerHTML =
+      `<div class="grid cols-2 breast-grid">
+        <div class="dgm9-card breast-card">
+          <div class="bc-cap">ตำแหน่งบนผนังทรวงอก (ภาพตัดด้านข้าง)</div>
+          ${window.SVG_BREAST_CHEST || ''}
+        </div>
+        <div class="dgm9-card breast-card">
+          <div class="bc-cap">โครงสร้างภายใน: กลีบต่อมน้ำนม–ท่อน้ำนม</div>
+          ${window.SVG_BREAST_LOBES || ''}
+        </div>
+      </div>
+      <div class="hint dgm9-credit">ที่มาภาพ: Cancer Research UK, Wikimedia Commons (CC BY-SA 4.0) — แปลไทยและปรับสไตล์เพื่อการศึกษา</div>`;
+  };
+
   // โรงงานสร้างไดอะแกรม: art = SVG ส่วนกายวิภาค, organs = จุด hotspot
   function makeDiagram(host, cfg) {
     const organs = cfg.organs;

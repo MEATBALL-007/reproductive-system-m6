@@ -57,7 +57,7 @@ function buildFontCss() {
 // ── ลำดับการรวมไฟล์ ─────────────────────────────────────────────────────────
 const CSS_FILES = ['css/theme.css', 'css/app.css'];
 // data → svg assets → diagrams → animations → engine → main (ลำดับ dependency)
-const JS_FILES  = ['js/data.js', 'js/svg-male.js', 'js/diagrams.js', 'js/animations.js', 'js/engine.js', 'js/main.js'];
+const JS_FILES  = ['js/data.js', 'js/svg-male.js', 'js/svg-breast.js', 'js/diagrams.js', 'js/animations.js', 'js/engine.js', 'js/main.js'];
 
 function buildHtml() {
   const fontCss = buildFontCss();
