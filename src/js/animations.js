@@ -1,11 +1,10 @@
 /* ============================================================================
-   animations.js — widget แอนิเมชันกระบวนการ + กราฟ + quiz
+   animations.js — widget แอนิเมชันกระบวนการ + กราฟ
      · chart-testosterone   ฮอร์โมนเพศชายตามอายุ
      · anim-spermatogenesis การสร้างอสุจิ (stepper)
      · anim-fertilization   การเดินทางอสุจิ → ปฏิสนธิ
      · anim-menstrual       รอบประจำเดือน (interactive)
      · anim-oogenesis       การสร้างไข่ + การตกไข่ (stepper)
-     · quiz                 แบบทดสอบเลือกตอบ เฉลยทันที
    ============================================================================ */
 'use strict';
 
@@ -420,57 +419,6 @@
           svg: egg(320, 150, 44, '') + spermSVG(520, 150, 1.6, 'var(--accent-2)') +
             `<text x="380" y="235" text-anchor="middle" font-size="14" fill="var(--accent)" font-weight="800">ไข่ + อสุจิ → ปฏิสนธิ</text>` },
       ],
-    });
-  };
-
-  /* =========================================================================
-     6) quiz — แบบทดสอบเลือกตอบ เฉลยทันที
-     ========================================================================= */
-  window.WIDGETS['quiz'] = function (host) {
-    const set = host.dataset.set;
-    const data = DATA.quizzes[set];
-    if (!data) { host.textContent = 'ไม่พบชุดคำถาม'; return; }
-    const KEYS = ['ก', 'ข', 'ค', 'ง', 'จ'];
-    let answered = 0, correct = 0;
-
-    host.innerHTML = `<div class="quiz">
-      ${data.items.map((it, qi) => `
-        <div class="quiz__q" data-q="${qi}">
-          <div class="qhead"><span class="qnum">${qi + 1}</span><span class="qtext">${it.q}</span></div>
-          <div class="quiz__opts">
-            ${it.opts.map((o, oi) => `<button class="quiz__opt" data-oi="${oi}">
-              <span class="key">${KEYS[oi]}</span><span>${o}</span></button>`).join('')}
-          </div>
-          <div class="quiz__explain"></div>
-        </div>`).join('')}
-      <div class="quiz__scorewrap"><span class="quiz__score">คะแนน: <span class="sc">0</span> / ${data.items.length}</span></div>
-    </div>`;
-
-    host.querySelectorAll('.quiz__q').forEach(qEl => {
-      const qi = +qEl.dataset.q;
-      const it = data.items[qi];
-      const opts = qEl.querySelectorAll('.quiz__opt');
-      let done = false;
-      opts.forEach(opt => {
-        opt.addEventListener('click', () => {
-          if (done) return;
-          done = true;
-          const oi = +opt.dataset.oi;
-          const isRight = oi === it.answer;
-          opts.forEach(o => {
-            o.disabled = true;
-            const i = +o.dataset.oi;
-            if (i === it.answer) o.classList.add('correct');
-            else if (i === oi) o.classList.add('wrong');
-          });
-          const ex = qEl.querySelector('.quiz__explain');
-          ex.innerHTML = (isRight ? '✅ <b>ถูกต้อง</b> — ' : '❌ <b>ยังไม่ถูก</b> — ') + it.explain;
-          ex.classList.add('show');
-          answered++; if (isRight) correct++;
-          host.querySelector('.sc').textContent = correct;
-          if (window.Engine && Engine.refit) setTimeout(Engine.refit, 380);
-        });
-      });
     });
   };
 

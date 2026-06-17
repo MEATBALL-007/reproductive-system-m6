@@ -1546,62 +1546,6 @@ window.SVG_BREAST_LOBES = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"ht
        <div class="hint dgm9-credit">ที่มา: ดัดแปลงจาก Wikimedia Commons — “Human male reproductive system” โดย Wumingbai (CC BY-SA 4.0) · แปลไทยและปรับสไตล์เพื่อการศึกษา</div>`;
   };
 
-  // (เลิกใช้) ไดอะแกรมชายภายในแบบวาดเอง — เก็บไว้เป็นสำรอง
-  window.WIDGETS['diagram-male-internal-drawn'] = function (host) {
-    makeDiagram(host, {
-      viewBox: '0 0 760 580',
-      aria: 'อวัยวะสืบพันธุ์ชายภายใน (มุมมองด้านข้าง)',
-      caption: 'มุมมองด้านข้าง (sagittal) · เส้นจาง = แนวลำตัว · เส้นประ = ท่อปัสสาวะ/เส้นทางอสุจิ',
-      art: `
-        <!-- โครงร่างลำตัวด้านข้าง (จาง): สะโพก/ก้นด้านซ้าย · องคชาตยื่นขวา-ล่าง -->
-        <path d="M150 26 L452 26 C452 120 450 150 452 168 C500 178 560 210 575 250
-                 C600 300 632 360 612 372 C588 386 560 360 540 346 C516 360 470 300 452 270
-                 C436 300 360 312 300 318 C250 322 235 360 235 400 L235 560 L96 560
-                 C62 360 60 250 84 180 C100 120 110 60 150 26 Z"
-              fill="rgba(255,196,168,.07)" stroke="var(--stroke)" stroke-width="1.5"/>
-        <text x="180" y="60" font-size="12" fill="var(--ink-dim)">ลำตัว (ด้านข้าง)</text>
-        <!-- ทวารหนัก (บริบท จาง) -->
-        <path d="M205 150 L205 330" stroke="var(--stroke-strong)" stroke-width="16" fill="none" stroke-linecap="round" opacity=".35"/>
-        <text x="170" y="250" font-size="10.5" fill="var(--ink-dim)" text-anchor="end">ทวารหนัก</text>
-        <!-- กระเพาะปัสสาวะ (บริบท จาง) -->
-        <ellipse cx="345" cy="180" rx="72" ry="56" fill="rgba(185,140,255,.10)" stroke="var(--stroke-strong)" stroke-width="1.5"/>
-        <text x="345" y="135" text-anchor="middle" font-size="11" fill="var(--ink-dim)">กระเพาะปัสสาวะ</text>
-        <!-- หัวหน่าว (บริบท) -->
-        <ellipse cx="420" cy="270" rx="16" ry="22" fill="rgba(255,255,255,.06)" stroke="var(--stroke)"/>
-        <!-- ถุงน้ำเลี้ยงอสุจิ (หลังกระเพาะปัสสาวะ) -->
-        <path class="organ-soft" d="M250 232 q22 -22 44 -6 q14 14 0 30 q-10 14 -26 8 q-22 -8 -18 -32 Z"/>
-        <!-- ท่อนำอสุจิ: จากอัณฑะวนขึ้นหลังกระเพาะปัสสาวะ -->
-        <path class="organ-line" d="M520 408 C470 350 440 312 408 296 C360 272 300 270 282 252" stroke-width="4.5"/>
-        <!-- ต่อมลูกหมาก (ล้อมท่อปัสสาวะ ใต้กระเพาะปัสสาวะ) -->
-        <ellipse class="organ-fill" cx="372" cy="288" rx="40" ry="34"/>
-        <circle cx="372" cy="288" r="10" fill="var(--bg-1)" stroke="var(--accent-2)" stroke-width="2"/>
-        <!-- ต่อมคาวเปอร์ (ใต้ต่อมลูกหมาก ใกล้โคนองคชาต) -->
-        <circle class="organ-soft" cx="404" cy="330" r="13"/>
-        <!-- องคชาต (ยื่นไปขวา-ล่าง) -->
-        <path class="organ-soft" d="M404 296 L660 392 Q692 402 690 424 Q686 448 658 440 L410 352 Z"/>
-        <ellipse class="organ-fill" cx="676" cy="424" rx="26" ry="24"/>
-        <!-- ท่อปัสสาวะ (เส้นประ ผ่านต่อมลูกหมาก → องคชาต → ปลาย) -->
-        <path d="M345 232 C360 260 366 280 380 300 C420 330 540 372 666 418"
-              fill="none" stroke="var(--accent-2)" stroke-width="2.4" stroke-dasharray="4 6" opacity=".7"/>
-        <!-- ถุงอัณฑะ + อัณฑะ + ท่อพักอสุจิ (ห้อยล่าง) -->
-        <path class="organ-soft" d="M470 372 C432 392 420 470 472 512 C520 548 580 540 606 498 C632 456 620 388 568 372 Z" opacity=".5"/>
-        <ellipse class="organ-fill" cx="528" cy="456" rx="48" ry="56"/>
-        <ellipse cx="540" cy="448" rx="20" ry="26" fill="rgba(255,255,255,.10)"/>
-        <!-- ท่อพักอสุจิ (epididymis) คลุมด้านหลัง-บนของอัณฑะ -->
-        <path class="organ-line" d="M486 412 C474 446 480 486 506 506" stroke-width="6"/>
-      `,
-      organs: [
-        { id: 'testis', x: 528, y: 456, name: 'อัณฑะ', en: 'testis', fn: 'สร้างอสุจิในหลอดสร้างอสุจิ และสร้างฮอร์โมนเทสโทสเตอโรน' },
-        { id: 'epididymis', x: 488, y: 458, lx: -20, name: 'ท่อพักอสุจิ', en: 'epididymis', fn: 'อยู่ด้านหลัง-บนของอัณฑะ เก็บอสุจิและทำให้อสุจิเจริญเต็มที่จนเคลื่อนที่ (ว่ายน้ำ) ได้' },
-        { id: 'vas', x: 440, y: 318, name: 'ท่อนำอสุจิ', en: 'vas deferens', fn: 'ลำเลียงอสุจิจากท่อพักอสุจิวนขึ้นไปด้านหลังกระเพาะปัสสาวะ ก่อนเข้าสู่ท่อปัสสาวะ' },
-        { id: 'seminal', x: 272, y: 238, lx: -22, ly: -6, name: 'ถุงน้ำเลี้ยงอสุจิ', en: 'seminal vesicle', fn: 'อยู่หลังกระเพาะปัสสาวะ สร้างของเหลวที่มีน้ำตาลฟรุกโตส เป็นแหล่งพลังงานให้อสุจิ' },
-        { id: 'prostate', x: 372, y: 288, name: 'ต่อมลูกหมาก', en: 'prostate gland', fn: 'อยู่ใต้กระเพาะปัสสาวะ ล้อมรอบท่อปัสสาวะ สร้างของเหลวด่างอ่อนช่วยให้อสุจิอยู่รอด' },
-        { id: 'bulbo', x: 404, y: 330, name: 'ต่อมคาวเปอร์', en: 'bulbourethral gland', fn: 'อยู่ใต้ต่อมลูกหมากใกล้โคนองคชาต หลั่งเมือกหล่อลื่นและทำความสะอาดท่อปัสสาวะ' },
-        { id: 'urethra', x: 560, y: 392, ly: -10, name: 'ท่อปัสสาวะ', en: 'urethra', fn: 'ทางผ่านร่วมของน้ำอสุจิและปัสสาวะ วิ่งจากกระเพาะปัสสาวะผ่านต่อมลูกหมากไปตามองคชาตสู่ปลาย' },
-      ],
-    });
-  };
-
   // ───────────────────────── หญิง: ภายนอก ────────────────────────────────
   window.WIDGETS['diagram-female-external'] = function (host) {
     makeDiagram(host, {
@@ -1676,13 +1620,12 @@ window.SVG_BREAST_LOBES = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"ht
 ;
 /* ===== js/animations.js ===== */
 /* ============================================================================
-   animations.js — widget แอนิเมชันกระบวนการ + กราฟ + quiz
+   animations.js — widget แอนิเมชันกระบวนการ + กราฟ
      · chart-testosterone   ฮอร์โมนเพศชายตามอายุ
      · anim-spermatogenesis การสร้างอสุจิ (stepper)
      · anim-fertilization   การเดินทางอสุจิ → ปฏิสนธิ
      · anim-menstrual       รอบประจำเดือน (interactive)
      · anim-oogenesis       การสร้างไข่ + การตกไข่ (stepper)
-     · quiz                 แบบทดสอบเลือกตอบ เฉลยทันที
    ============================================================================ */
 'use strict';
 
@@ -2100,57 +2043,6 @@ window.SVG_BREAST_LOBES = "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.0//EN\" \"ht
     });
   };
 
-  /* =========================================================================
-     6) quiz — แบบทดสอบเลือกตอบ เฉลยทันที
-     ========================================================================= */
-  window.WIDGETS['quiz'] = function (host) {
-    const set = host.dataset.set;
-    const data = DATA.quizzes[set];
-    if (!data) { host.textContent = 'ไม่พบชุดคำถาม'; return; }
-    const KEYS = ['ก', 'ข', 'ค', 'ง', 'จ'];
-    let answered = 0, correct = 0;
-
-    host.innerHTML = `<div class="quiz">
-      ${data.items.map((it, qi) => `
-        <div class="quiz__q" data-q="${qi}">
-          <div class="qhead"><span class="qnum">${qi + 1}</span><span class="qtext">${it.q}</span></div>
-          <div class="quiz__opts">
-            ${it.opts.map((o, oi) => `<button class="quiz__opt" data-oi="${oi}">
-              <span class="key">${KEYS[oi]}</span><span>${o}</span></button>`).join('')}
-          </div>
-          <div class="quiz__explain"></div>
-        </div>`).join('')}
-      <div class="quiz__scorewrap"><span class="quiz__score">คะแนน: <span class="sc">0</span> / ${data.items.length}</span></div>
-    </div>`;
-
-    host.querySelectorAll('.quiz__q').forEach(qEl => {
-      const qi = +qEl.dataset.q;
-      const it = data.items[qi];
-      const opts = qEl.querySelectorAll('.quiz__opt');
-      let done = false;
-      opts.forEach(opt => {
-        opt.addEventListener('click', () => {
-          if (done) return;
-          done = true;
-          const oi = +opt.dataset.oi;
-          const isRight = oi === it.answer;
-          opts.forEach(o => {
-            o.disabled = true;
-            const i = +o.dataset.oi;
-            if (i === it.answer) o.classList.add('correct');
-            else if (i === oi) o.classList.add('wrong');
-          });
-          const ex = qEl.querySelector('.quiz__explain');
-          ex.innerHTML = (isRight ? '✅ <b>ถูกต้อง</b> — ' : '❌ <b>ยังไม่ถูก</b> — ') + it.explain;
-          ex.classList.add('show');
-          answered++; if (isRight) correct++;
-          host.querySelector('.sc').textContent = correct;
-          if (window.Engine && Engine.refit) setTimeout(Engine.refit, 380);
-        });
-      });
-    });
-  };
-
 })();
 
 ;
@@ -2360,8 +2252,7 @@ const Engine = (function () {
         entries.forEach(e => {
           if (e.isIntersecting) {
             const idx = +e.target.dataset.index;
-            if (state.motion) revealAll(e.target);
-            else revealAll(e.target);
+            revealAll(e.target);
             initWidgets(e.target);
             // อัปเดต current จากตำแหน่งกึ่งกลาง
             if (e.intersectionRatio > 0.5) { state.current = idx; updateUI(); }
@@ -2633,7 +2524,7 @@ const Engine = (function () {
     let x0 = null, y0 = null;
     deckEl.addEventListener('pointerdown', e => {
       if (state.mode !== 'slide') return;
-      if (e.target.closest('.ctl, .quiz, .anim-controls, .organ-list, input, button, .hotspot, .diagram')) return;
+      if (e.target.closest('.ctl, .anim-controls, .organ-list, input, button, .hotspot, .diagram')) return;
       if (e.pointerType === 'mouse') return;
       x0 = e.clientX; y0 = e.clientY;
     });

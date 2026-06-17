@@ -203,8 +203,7 @@ const Engine = (function () {
         entries.forEach(e => {
           if (e.isIntersecting) {
             const idx = +e.target.dataset.index;
-            if (state.motion) revealAll(e.target);
-            else revealAll(e.target);
+            revealAll(e.target);
             initWidgets(e.target);
             // อัปเดต current จากตำแหน่งกึ่งกลาง
             if (e.intersectionRatio > 0.5) { state.current = idx; updateUI(); }
@@ -476,7 +475,7 @@ const Engine = (function () {
     let x0 = null, y0 = null;
     deckEl.addEventListener('pointerdown', e => {
       if (state.mode !== 'slide') return;
-      if (e.target.closest('.ctl, .quiz, .anim-controls, .organ-list, input, button, .hotspot, .diagram')) return;
+      if (e.target.closest('.ctl, .anim-controls, .organ-list, input, button, .hotspot, .diagram')) return;
       if (e.pointerType === 'mouse') return;
       x0 = e.clientX; y0 = e.clientY;
     });
